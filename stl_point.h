@@ -68,7 +68,6 @@ class _2points {
 public:
 	vector<g_point> point;
 	int mask;
-	//_2points() = default;
 	_2points() :point(), mask(0) {};
 	int size();
 	void swap();
@@ -166,23 +165,17 @@ bool line_link(vector<_2points>& _2dots_arr, vector<line>& lines, long& unlinked
 	}
 	if (templine_cnt == 0) return 0;
 	int not_a_circle = 0;
-	//cout << "linking  "<<templine[0] << endl;
 	for (int i = 0; i < 2; i++) {
-		while ((templine[templine_cnt - 1].point[1] != (templine[0].point[0])) && (unlinked_2dots > 0)) {//找到一条线
+		while ((templine[templine_cnt - 1].point[1] != (templine[0].point[0])) && (unlinked_2dots > 0)) {//脮脪碌陆脪禄脤玫脧脽
 			int ret = 0;
 			auto shortcut = templine_cnt;
-			//cout << "islinking" << endl;
 			for (vector<_2points>::iterator i = _2dots_arr.begin(); i != _2dots_arr.end(); ) {
-				//for (auto& i:_2dots_arr) {
 				if ((i->mask == 0) && ((ret = is_link(templine[templine_cnt - 1], *i, 1)) != 0)) {
-					//cout << "is_linking" << endl;
 					if (ret == 1) {
 						i->mask = 1;
 						templine.push_back(*i);
 						unlinked_2dots--;
 						templine_cnt++;
-						//cout << "link reght" << endl;
-					
 					}
 					else if (ret == -1) {
 						i->swap();
@@ -190,19 +183,14 @@ bool line_link(vector<_2points>& _2dots_arr, vector<line>& lines, long& unlinked
 						templine.push_back(*i);
 						unlinked_2dots--;
 						templine_cnt++;
-						//cout << "link right" << endl;
-						
 					}
 
 				}
 				i++;
 				if (shortcut != templine_cnt) {
-					//cout << "linking " << templine[templine_cnt - 1] << endl;
 					break;
 				}
 				if ((i == _2dots_arr.end()) && (shortcut == templine_cnt)) {
-					//cout << "count" << endl;
-					//line_link(_2dots_arr, lines, unlinked_2dots);
 					not_a_circle = 1;
 				}
 			}
@@ -217,9 +205,6 @@ bool line_link(vector<_2points>& _2dots_arr, vector<line>& lines, long& unlinked
 	}
 	lines.push_back(templine);
 	if (unlinked_2dots>0) {
-		//cout << "counting" << endl;
-		//Sleep(1000);
-
 		line_link(_2dots_arr, lines, unlinked_2dots);
 		return 0;
 	}
@@ -234,6 +219,5 @@ ofstream& printLine(ofstream& file, const vector<_2points>& lin_to_print) {
 		}
 		file << i->point[0]<<endl;
 	}
-	//file << "------------------" << endl;
 	return file;
 }
